@@ -89,6 +89,7 @@ class SignUpFragment : BaseFragment<AuthViewModel, FragmentSignUpBinding>(), Tex
                     }
                     is Resources.Failure -> {
                         val exception = it.exception
+                        showSnackbar(exception.message.toString())
                     }
                     is Resources.Loading -> {
 

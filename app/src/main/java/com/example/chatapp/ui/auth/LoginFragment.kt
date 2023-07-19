@@ -34,7 +34,10 @@ class LoginFragment : BaseFragment<AuthViewModel,FragmentLoginBinding>(),TextCha
             it?.let {
                 when(it){
                     is Resources.Success->{
-
+                        val activity = requireActivity()
+                        if(activity is MainActivity){
+                            activity.redirectChatActivity()
+                        }
                     }
                     is Resources.Failure->{
                         showSnackbar("Authentication failed")

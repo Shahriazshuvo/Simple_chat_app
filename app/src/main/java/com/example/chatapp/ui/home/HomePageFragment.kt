@@ -25,27 +25,25 @@ class HomePageFragment : BaseFragment<HomeViewModel,FragmentHomePageBinding>() {
 
     override fun getViewBinding(): FragmentHomePageBinding = FragmentHomePageBinding.inflate(layoutInflater)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isCurrentUserActive()
         initView()
         setOnClickListener()
-        currentUserObserver()
     }
 
-    private fun currentUserObserver() {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val reference =
-            firebaseUser?.uid?.let { FirebaseDatabase.getInstance().getReference("Users").child(it) }
-        reference?.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
+    private fun isCurrentUserActive() {
+        if(mViewModel.currentUser != null){
+            val activity = requireActivity()
+            if(activity is MainActivity){
+                activity.finish()
+                activity.redirectChatActivity()
             }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
+        }
     }
 
     private fun setOnClickListener() {

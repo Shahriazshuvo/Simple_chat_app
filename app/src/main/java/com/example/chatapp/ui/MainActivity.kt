@@ -27,12 +27,9 @@ class MainActivity : BaseActivity<MainViewModel,ActivityMainBinding>() {
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        if(mViewModel.currentUser != null){
-            redirectChatActivity()
-        }
     }
 
-    private fun redirectChatActivity() {
+    fun redirectChatActivity() {
         startActivity(Intent(this@MainActivity,ChatActivity::class.java))
     }
 
